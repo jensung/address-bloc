@@ -10,7 +10,6 @@ module.exports = class MenuController {
         message: 'Please choose from an option below: ',
         choices: [
           'Add new contact',
-          'Current Date and Time',
           'Exit'
         ]
       }
@@ -24,9 +23,6 @@ module.exports = class MenuController {
       switch(response.mainMenuChoice){
         case 'Add new contact':
           this.addContact();
-          break;
-        case 'Current Date and Time':
-          this.getDate();
           break;
         case 'Exit':
           this.exit();
@@ -47,7 +43,7 @@ module.exports = class MenuController {
   addContact(){
     this.clear();
     inquirer.prompt(this.book.addContactQuestions).then((answers) => {
-      this.book.addContact(answers.name, answers.phone).then((contact) => {
+      this.book.addContact(answers.name, answers.phone, answers.email).then((contact) => {
         console.log("Contact added successfully!");
         this.main();
       }).catch((err) => {
@@ -55,12 +51,6 @@ module.exports = class MenuController {
         this.main();
       });
     });
-  }
-
-  getDate() {
-    this.clear();
-    console.log("Date and Time (Local): " + Date());
-    this.main();
   }
 
   exit(){
